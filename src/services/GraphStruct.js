@@ -20,11 +20,15 @@ const GraphStruct = {
 		while (queue.length > 0) {
 			const city = queue.shift(); //mutate queue
 
-			const distinations = this.graphMap.get(city);
+			const distinations = [city, ...this.graphMap.get(city)];
 
 			for (const distination of distinations) {
 				if (distination === target) {
 					console.log("found it!");
+					// while (queue.length > 0) {
+					// 	queue.pop();
+					// }
+					return true;
 				}
 
 				if (!visited.has(distination)) {

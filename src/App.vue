@@ -1,5 +1,5 @@
 <template>
-    <div id="app" style="display: flex">
+    <div id="app" class="app">
         <div class="graph-container" v-if="dataSet">
             <Graph :dataSet="dataSet" />
         </div>
@@ -11,6 +11,7 @@
                         <option
                             v-for="(item, key) in dataSet.nodes.get()"
                             :key="key"
+                            :selected="item.label == from"
                         >
                             {{ item.label }}
                         </option>
@@ -21,6 +22,7 @@
                         <option
                             v-for="(item, key) in dataSet.nodes.get()"
                             :key="key"
+                            :selected="item.label == to"
                         >
                             {{ item.label }}
                         </option>
@@ -75,7 +77,8 @@ import { sleep } from "./Utilities/Utils";
 
 // eslint-disable-next-line no-unused-vars
 const PaintNodeCallback = async (nodes, node) => {
-    console.log(nodes.update({ id: node, color: { background: "#fe8181" } }));
+    console.log(node);
+    nodes.update({ id: node, color: { background: "#fe8181" } });
     await sleep(500);
     nodes.update([{ id: node, color: { background: "#6a8ebf" } }]);
     await sleep(500);
@@ -138,3 +141,13 @@ export default {
     },
 };
 </script>
+
+<style>
+.app {
+    display: flex;
+    padding: 6pt;
+}
+.graph-container {
+    margin-right: 10pt;
+}
+</style>
